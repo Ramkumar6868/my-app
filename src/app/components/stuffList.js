@@ -6,7 +6,10 @@ import React from 'react';
 
 class stuffList extends React.Component {
     componentWillMount() {
-        this.props.stuffActions.fetchStuff();
+        this.props.stuffActions.fetchStuff()
+        .then(response => {
+            console.log(response);
+        });
     }
 
     renderData(item) {
@@ -17,7 +20,7 @@ class stuffList extends React.Component {
         if(!this.props.stuff){
             return (
                 <div>
-                    Loading Stuff...
+                    Loading Farmer Lists ...
                 </div>
             )
         }else{
@@ -29,7 +32,7 @@ class stuffList extends React.Component {
                                 this.renderData(item)
                             );
                         })
-                    }Stuff
+                    }
                 </div>
             )
         }

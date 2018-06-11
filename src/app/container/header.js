@@ -1,44 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import {Link} from 'react-router-dom';
+import StuffList from '../components/stuffList.js'
 export default class Header extends React.Component {
 	render() {
-		const styles = {
-		  root: {
-		    flexGrow: 1,
-		  },
-		  flex: {
-		    flex: 1,
-		  },
-		  menuButton: {
-		    marginLeft: -12,
-		    marginRight: 20,
-		  },
-		};
 
 		return(
-			<div className={styles.root}>
-		      <AppBar position="static">
-		        <Toolbar>
-		          <IconButton className={styles.menuButton} color="inherit" aria-label="Menu">
-		            <MenuIcon />
-		          </IconButton>
-		          <Typography variant="title" color="inherit" className={styles.flex}>
-		            GroundNut Supplier
-		          </Typography>
-		          <Button color="inherit"><Link to='/farmer'>Home</Link></Button>
-		          <Button color="inherit">Farmer</Button>
-		          <Button color="inherit">Supplier</Button>
-		        </Toolbar>
-		      </AppBar>
-		    </div>
+			<nav className="navbar navbar-expand-lg bg-dark">
+			    <a className="navbar-brand" href="/">GroundNut</a>
+			    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+			      <ul className="navbar-nav">
+			        <li className="nav-item active">
+			          <Link to='/' className="nav-link">Home</Link>
+			        </li>
+			        <li className="nav-item">
+			          <Link to='/farmer' className="nav-link">Farmer</Link>
+			        </li>
+			        <li className="nav-item">
+			          <Link to='/agreement' className="nav-link">Agreement</Link>
+			        </li>
+			      </ul>
+			    </div>
+			  </nav>
 		)
 	}
 } 

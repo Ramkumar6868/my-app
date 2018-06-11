@@ -4,7 +4,13 @@ export default class Footer extends React.Component {
 	
 	render(){
 		return(
-			<div></div>
+			<nav className="navbar navbar-expand-sm fixed-bottom bg-dark justify-content-center">
+				  <ul className="navbar-nav">
+				    <li className="nav-item">
+				      <span>Powered By: @ Ram Kumar Kulriya</span>
+				    </li>
+				  </ul>
+			</nav>
 		)
 	}
 }
