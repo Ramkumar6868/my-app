@@ -6,6 +6,13 @@ import PropTypes from 'prop-types';
 import FarmerList from './farmerList.js';
 
 class Farmer extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.state = {
+			FarmerDetail: {}
+		};
+	}
 	
 	componentWillMount(){
 		this.props.farmerActions.fetchFarmerList();
@@ -17,7 +24,7 @@ class Farmer extends React.Component {
                     Loading farmerLists
                 </div>
             )
-        }else{
+        } else {
             return (
                 <div className="">
                     <FarmerList farmersList={this.props.farmersList}/>

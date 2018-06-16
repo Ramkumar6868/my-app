@@ -9,3 +9,11 @@
 .navbar a:hover{
 	color: white;
 }
+
+.paddingBottom{
+	padding-bottom: 50px;
+}
+
+table{
+	margin-top: 10px;
+}
