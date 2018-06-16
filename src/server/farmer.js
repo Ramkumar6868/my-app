@@ -6,6 +6,7 @@ export const farmersList = [
 		village: "Kakra",
 		city: "Nokha",
 		mobileNumber: "9636566926",
+		extraInfo: "Contacted by blabla",
 		id: 2
 	},
 	{
@@ -15,6 +16,7 @@ export const farmersList = [
 		village: "Pepmra",
 		city: "Nokha",
 		mobileNumber: "9828017147",
+		extraInfo: "Third party",
 		id: 1
 	}
 ]

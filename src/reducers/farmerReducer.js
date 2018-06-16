@@ -1,5 +1,5 @@
 import { farmersList } from './initialState.js';
-import {FETCH_FARMER, RECEIVE_FARMER} from '../actions/actionTypes.js';
+import {FETCH_FARMER, RECEIVE_FARMER, ADD_FARMER} from '../actions/actionTypes.js';
 
 
 export default function farmer(state=farmersList, action){
@@ -9,6 +9,10 @@ export default function farmer(state=farmersList, action){
 			console.log('FETCH_FARMER ACTION');
 			return action;
 		case RECEIVE_FARMER:
+			newState = action.farmersList;
+			console.log('RECEIVE_STUFF ACTION', action.farmersList);
+			return newState;
+		case ADD_FARMER:
 			newState = action.farmersList;
 			console.log('RECEIVE_STUFF ACTION', action.farmersList);
 			return newState;

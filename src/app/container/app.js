@@ -12,8 +12,10 @@ export default class MyApp extends React.Component {
 		return(
 			<BrowserRouter>
 				<div>
-				<Header/>
-				<div className="container-fluid">
+				<header>
+					<Header/>
+				</header>
+				<div className="container-fluid paddingBottom">
 					<div className="row">
 						<div className="col-xl-1"></div>
 						<div className="col-xl-10">
@@ -26,7 +28,9 @@ export default class MyApp extends React.Component {
 						<div className="col-xl-1"></div>
 					</div>
 				</div>
-					<Footer/>
+					<footer>
+						<Footer/>
+					</footer>
 				</div>
 			</BrowserRouter>
 		)

@@ -5,6 +5,7 @@ export default class Home extends React.Component{
 		return(
 			<div>
 				Welocome to GroundNut Management Tool
+				
 			</div>
 		)
 	}
