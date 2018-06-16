@@ -12,11 +12,6 @@ class Farmer extends React.Component {
 		this.state = {
 			FarmerDetail: {}
 		};
-		this.submitFarmerForm = this.submitFarmerForm.bind(this);
-	}
-
-	submitFarmerForm(farmer){
-		console.log(farmer);
 	}
 	
 	componentWillMount(){
@@ -32,7 +27,7 @@ class Farmer extends React.Component {
         } else {
             return (
                 <div className="">
-                    <FarmerList farmersList={this.props.farmersList} submitFarmerForm={(farmer)=>this.submitFarmerForm(farmer)}/>
+                    <FarmerList farmersList={this.props.farmersList}/>
                 </div>
             )
         }

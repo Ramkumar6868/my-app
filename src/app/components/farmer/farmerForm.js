@@ -12,12 +12,18 @@ class FarmerForm extends React.Component{
 		};
 		this.submitFarmerForm = this.submitFarmerForm.bind(this);
 		this.handleOnChange = this.handleOnChange.bind(this);
+		this.handleCloseModel = this.handleCloseModel.bind(this);
+	}
+
+	handleCloseModel(event){
+		event.preventDefault();
+		this.props.handleCloseModel();
 	}
 
 	submitFarmerForm(event){
 		event.preventDefault();
 		this.props.farmerActions.addToFarmerList(this.state.farmerFormDetail);
-		this.props.submitFarmerForm(this.state.farmerFormDetail);
+		this.props.handleCloseModel();
 	}
 
 	handleOnChange(event){
@@ -67,7 +73,7 @@ class FarmerForm extends React.Component{
 				    <label htmlFor="formGroupExampleInput2">Extra Info</label>
 				    <textarea name="extraInfo" className="form-control" value={this.state.farmerFormDetail.extraInfo} onChange={this.handleOnChange} placeholder="Extra Information about farmer" rows="3"></textarea>
 				  </div>
-				  <button type="cancel" className="btn btn-secondary">cancel</button>
+				  <button className="btn btn-secondary" onClick={this.handleCloseModel}>cancel</button>
 				  <button type="submit" className="btn btn-primary float-right">Submit</button>
 				</form>
 			</div>

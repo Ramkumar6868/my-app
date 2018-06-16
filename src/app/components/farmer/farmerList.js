@@ -55,7 +55,6 @@ export default class FarmerList extends React.Component{
 		}
 		this.openFarmerForm = this.openFarmerForm.bind(this);
 		this.handleCloseModel = this.handleCloseModel.bind(this);
-		this.submitFarmerForm = this.submitFarmerForm.bind(this);
 	}
 
 	openFarmerForm(item){
@@ -70,13 +69,6 @@ export default class FarmerList extends React.Component{
 		this.setState({
 			showMadal: false
 		});
-	}
-
-	submitFarmerForm(farmer){
-		this.setState({
-			showMadal: false
-		});
-		this.props.submitFarmerForm(farmer);
 	}
 
 	render(){
@@ -117,7 +109,7 @@ export default class FarmerList extends React.Component{
 			          contentLabel="Famer Form"
 			          ariaHideApp={false}
 			        >
-			        <FarmerForm farmerFormDetail={this.state.updateFormDetails} submitFarmerForm={(farmer)=>this.submitFarmerForm(farmer)}/>
+			        <FarmerForm farmerFormDetail={this.state.updateFormDetails} handleCloseModel={this.handleCloseModel}/>
 			        </Modal>
 	            </div>
 	        </div>
