@@ -3,3 +3,5 @@ export default {
 }
 
 export const farmersList = [];
+
+export const agreementsList = []
