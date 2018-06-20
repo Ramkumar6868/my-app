@@ -31,7 +31,7 @@ function RenderTableRaw(props){
 			<td>{props.agreement.rate}</td>
 			<td>{props.agreement.extraInfo}</td>
 			<td>
-				<button className="btn btn-primary" onClick={() => props.handleAgreementOpenModal(props.agreement)}>See Detail</button>
+				<button className="btn btn-primary" onClick={() => props.handleAgreementDetailOpenModal(props.agreement)}>See Detail</button>
 			</td>
 		</tr>
 	)
@@ -41,24 +41,25 @@ class AgreementsList extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			openAgreementModal: false,
+			openAgreementDetailModal: false,
+			openAgreementFormModal: false,
 			agreementDetail: {}
 		};
 
-		this.handleAgreementOpenModal = this.handleAgreementOpenModal.bind(this);
-		this.handleAgreementCloseModal = this.handleAgreementCloseModal.bind(this);
+		this.handleAgreementDetailOpenModal = this.handleAgreementDetailOpenModal.bind(this);
+		this.handleAgreementDetailCloseModal = this.handleAgreementDetailCloseModal.bind(this);
 	}
 
-	handleAgreementOpenModal(agreementDetail){
+	handleAgreementDetailOpenModal(agreementDetail){
 		this.setState({
-			openAgreementModal: true,
+			openAgreementDetailModal: true,
 			agreementDetail: agreementDetail
 		});
 	}
 
-	handleAgreementCloseModal(){
+	handleAgreementDetailCloseModal(){
 		this.setState({
-			openAgreementModal: false,
+			openAgreementDetailModal: false,
 			agreementDetail: {}
 		});
 	}
@@ -97,7 +98,7 @@ class AgreementsList extends React.Component{
 								// console.log(this.props.agreementsList)
 								this.props.agreementsList.map((agreement, index) =>{
 									return(
-										<RenderTableRaw key={agreement.id} agreement={agreement} handleAgreementOpenModal={(agreementDetail)=>this.handleAgreementOpenModal(agreementDetail)}/>
+										<RenderTableRaw key={agreement.id} agreement={agreement} handleAgreementDetailOpenModal={(agreementDetail)=>this.handleAgreementDetailOpenModal(agreementDetail)}/>
 									);
 								})
 							}
@@ -105,12 +106,12 @@ class AgreementsList extends React.Component{
 					</table>
 
 					<Modal
-						isOpen={this.state.openAgreementModal}
+						isOpen={this.state.openAgreementDetailModal}
 						style={modalStyle}
 						contentLabel="Agreement Detail"
 						ariaHideApp={false}
 					>
-						<AgreementDetail agreementDetail={this.state.agreementDetail} handleAgreementCloseModal={() => this.handleAgreementCloseModal() }/>
+						<AgreementDetail agreementDetail={this.state.agreementDetail} handleAgreementDetailCloseModal={() => this.handleAgreementDetailCloseModal() }/>
 					</Modal>
 				</div>
 			)

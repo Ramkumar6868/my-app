@@ -8,7 +8,7 @@ class AgreementDetail extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			agreementDetail: this.props.agreementDetail
+			agreementDetail: this.props.agreementDetail[0]
 		}
 		console.log(this.props.agreementDetail)
 	}
@@ -17,15 +17,52 @@ class AgreementDetail extends React.Component{
 		return(
 			<div className="container">
 				<h2 className="bg-secondary text-center rounded-top">Agreement Detail</h2>
-				<div className="row">
-					<div className="col-md-1"></div>
-					<div className="col-md-2">Farmer Name</div>
-					<div className="col-md-3">{this.state.agreementDetail.farmer + " " + this.props.agreementDetail}</div>
-					<div className="col-md-2">ss</div>
-					<div className="col-md-3">ss</div>
-					<div className="col-md-1"></div>
-				</div>
-				<button onClick={() => this.props.handleAgreementCloseModal()}>close</button>
+				<table className="table table-striped table-bordered">
+					<tbody>
+						<tr>
+							<td><b>Farmer Name</b></td>
+							<td>{this.state.agreementDetail.farmer.firstName+ " " + this.state.agreementDetail.farmer.lastName}</td>
+						</tr>
+						<tr>
+							<td><b>Father Name</b></td>
+							<td>{this.state.agreementDetail.farmer.fatherName}</td>
+						</tr>
+						<tr>
+							<td><b>Groundnut Type</b></td>
+							<td>{this.state.agreementDetail.groundnutType}</td>
+						</tr>
+						<tr>
+							<td><b>Rate(per Qvintal.)</b></td>
+							<td>{this.state.agreementDetail.rate}</td>
+						</tr>						
+						<tr>
+							<td><b>Date</b></td>
+							<td>{this.state.agreementDetail.agreementDate}</td>
+						</tr>
+						<tr>
+							<td><b>Weigth(in Kg)</b></td>
+							<td>{this.state.agreementDetail.weigth}</td>
+						</tr>
+						<tr>
+							<td><b>Total Payment</b></td>
+							<td>{this.state.agreementDetail.totalPayment}</td>
+						</tr>
+						<tr>
+							<td><b>Real Payment</b></td>
+							<td>{this.state.agreementDetail.actualTotalPayment}</td>
+						</tr>
+						<tr>
+							<td><b>Place where agreement done</b></td>
+							<td>{this.state.agreementDetail.place}</td>
+						</tr>
+						<tr>
+							<td><b>Extra Info</b></td>
+							<td>{this.state.agreementDetail.extraInfo}</td>
+						</tr>
+					</tbody>
+				</table>
+				<button onClick={() => this.props.handleAgreementDetailCloseModal()}>close</button>
+				<button className="btn btn-primary float-right">edit</button>
 			</div>
 		)
 	}
