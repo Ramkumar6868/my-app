@@ -10,11 +10,11 @@ export default function farmer(state=farmersList, action){
 			return action;
 		case RECEIVE_FARMER:
 			newState = action.farmersList;
-			console.log('RECEIVE_STUFF ACTION', action.farmersList);
+			console.log('RECEIVE_FARMER ACTION', action.farmersList);
 			return newState;
 		case ADD_FARMER:
 			newState = action.farmersList;
-			console.log('RECEIVE_STUFF ACTION', action.farmersList);
+			console.log('ADD_FARMER ACTION', action.farmersList);
 			return newState;
 		default:
 			return state;

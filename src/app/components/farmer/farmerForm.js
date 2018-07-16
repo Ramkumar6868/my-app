@@ -8,7 +8,7 @@ class FarmerForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			farmerFormDetail: Object.create(this.props.farmerFormDetail)
+			farmerFormDetail: {...this.props.farmerFormDetail}
 		};
 		this.submitFarmerForm = this.submitFarmerForm.bind(this);
 		this.handleOnChange = this.handleOnChange.bind(this);

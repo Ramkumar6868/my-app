@@ -10,7 +10,12 @@ class AgreementDetail extends React.Component{
 		this.state = {
 			agreementDetail: this.props.agreementDetail[0]
 		}
-		console.log(this.props.agreementDetail)
+		// console.log(this.props.agreementDetail)
+		this.handleAgreementDetailCloseModal = this.handleAgreementDetailCloseModal.bind(this);
+	}
+
+	handleAgreementDetailCloseModal(isEditAgreementDetail){
+		this.props.handleAgreementDetailCloseModal(isEditAgreementDetail);
 	}
 
 	render(){
@@ -44,6 +49,14 @@ class AgreementDetail extends React.Component{
 							<td>{this.state.agreementDetail.weigth}</td>
 						</tr>
 						<tr>
+							<td><b>Weigth Cut(in Kg)</b></td>
+							<td>{this.state.agreementDetail.weigthCut}</td>
+						</tr>
+						<tr>
+							<td><b>Moisture(in %)</b></td>
+							<td>{this.state.agreementDetail.moisture}</td>
+						</tr>
+						<tr>
 							<td><b>Total Payment</b></td>
 							<td>{this.state.agreementDetail.totalPayment}</td>
 						</tr>
@@ -61,8 +74,8 @@ class AgreementDetail extends React.Component{
 						</tr>
 					</tbody>
 				</table>
-				<button onClick={() => this.props.handleAgreementDetailCloseModal()}>close</button>
-				<button className="btn btn-primary float-right">edit</button>
+				<button onClick={() => this.handleAgreementDetailCloseModal(false)}>close</button>
+				<button className="btn btn-primary float-right" onClick={() => this.handleAgreementDetailCloseModal(true)}>Edit</button>
 			</div>
 		)
 	}

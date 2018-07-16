@@ -17,8 +17,9 @@ export const agreementsList = [
 		weigthCut: 2,
 		actualTotalPayment: 230000,
 		totalPayment: 230012,
+		moisture: 10.23,
 		place: "field",
-		agreementDate: "02/02/2017",
+		agreementDate: "2007-02-02",
 		extraInfo: "bla bla",
 		id: 1
 	}

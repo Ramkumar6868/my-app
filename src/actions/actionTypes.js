@@ -9,3 +9,5 @@ export const RECEIVE_FARMER = "RECEIVE_FARMER";
 export const ADD_FARMER = "ADD_FARMER";
 
 export const RECEIVE_AGREEMENT = "RECEIVE_AGREEMENT";
+
+export const ADD_AGREEMENT = "ADD_AGREEMENT"

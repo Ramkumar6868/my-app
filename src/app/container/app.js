@@ -23,6 +23,7 @@ export default class MyApp extends React.Component {
 								<Route exact path='/' component={Home}/>
 							  	<Route path='/farmer' component={Farmer}/>
 							  	<Route path='/agreement' component={Agreement}/>
+							  	<Route path='/agreement/:id' component={Agreement}/>
 							</Switch>
 						</div>
 						<div className="col-xl-1"></div>

@@ -1,4 +1,4 @@
-import { RECEIVE_AGREEMENT } from '../actions/actionTypes.js';
+import { RECEIVE_AGREEMENT, ADD_AGREEMENT } from '../actions/actionTypes.js';
 import {agreementsList} from './initialState.js';
 
 export default function agreement(state=agreementsList, action){
@@ -7,6 +7,10 @@ export default function agreement(state=agreementsList, action){
 		case RECEIVE_AGREEMENT:
 			newState = action.agreementsList;
 			return newState;
+		case ADD_AGREEMENT:
+			newState = action.agreementsList
+			console.log(action.agreementsList);
+			return newState
 		default:
 			return state;
 	}

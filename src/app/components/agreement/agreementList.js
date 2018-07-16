@@ -5,6 +5,7 @@ import * as agreementActions from '../../../actions/agreementActions.js';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import AgreementDetail from './agreementDetail.js';
+import AgreementForm from './agreementForm.js';
 
 const modalStyle = {
 	content: {
@@ -43,11 +44,34 @@ class AgreementsList extends React.Component{
 		this.state = {
 			openAgreementDetailModal: false,
 			openAgreementFormModal: false,
-			agreementDetail: {}
+			agreementDetail: {},
+			isEditAgreementDetail: false
 		};
 
 		this.handleAgreementDetailOpenModal = this.handleAgreementDetailOpenModal.bind(this);
 		this.handleAgreementDetailCloseModal = this.handleAgreementDetailCloseModal.bind(this);
+		this.handleAgreementFormOpenModal = this.handleAgreementFormOpenModal.bind(this);
+		this.handleAgreementFormCloseModal = this.handleAgreementFormCloseModal.bind(this);
+	}
+
+	resetAgreementDetails(){
+		var agreementDetail = {
+			farmer: {},
+			groundnutType: "khalo",
+			rate: 0.00,
+			weigth: 0.00,
+			groundnutPercente: 0.00,
+			weigthCut: 0.00,
+			actualTotalPayment: 0.00,
+			totalPayment: 0.00,
+			moisture: 0.00,
+			place: "",
+			agreementDate: "",
+			extraInfo: ""
+		}
+		this.setState({
+			agreementDetail: agreementDetail
+		});
 	}
 
 	handleAgreementDetailOpenModal(agreementDetail){
@@ -57,10 +81,30 @@ class AgreementsList extends React.Component{
 		});
 	}
 
-	handleAgreementDetailCloseModal(){
+	createAgreement(){
+		this.resetAgreementDetails();
+		this.handleAgreementFormOpenModal(false);
+	}
+
+	handleAgreementDetailCloseModal(isEditAgreementDetail){
+		if(isEditAgreementDetail){
+			this.handleAgreementFormOpenModal();
+		}
 		this.setState({
 			openAgreementDetailModal: false,
-			agreementDetail: {}
+		});
+	}
+
+	handleAgreementFormCloseModal(){
+		this.setState({
+			openAgreementFormModal: false
+		});
+	}
+
+	handleAgreementFormOpenModal(isEditAgreementDetail){
+		this.setState({
+			openAgreementFormModal: true,
+			isEditAgreementDetail: isEditAgreementDetail
 		});
 	}
 
@@ -104,6 +148,11 @@ class AgreementsList extends React.Component{
 							}
 						</tbody>
 					</table>
+					<div>
+		            	<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#agreementNew" onClick={()=>this.createAgreement()}>
+							Entry New Agreement
+						</button>
+		            </div>
 
 					<Modal
 						isOpen={this.state.openAgreementDetailModal}
@@ -111,7 +160,15 @@ class AgreementsList extends React.Component{
 						contentLabel="Agreement Detail"
 						ariaHideApp={false}
 					>
-						<AgreementDetail agreementDetail={this.state.agreementDetail} handleAgreementDetailCloseModal={() => this.handleAgreementDetailCloseModal() }/>
+						<AgreementDetail agreementDetail={this.state.agreementDetail} handleAgreementDetailCloseModal={(isEditAgreementDetail) => this.handleAgreementDetailCloseModal(isEditAgreementDetail) }/>
+					</Modal>
+					<Modal
+						isOpen={this.state.openAgreementFormModal}
+						style={modalStyle}
+						contentLabel="Agreement Detail"
+						ariaHideApp={false}
+					>
+						<AgreementForm isEditAgreementDetail={this.state.isEditAgreementDetail} agreementFormDetail={this.state.agreementDetail} handleAgreementFormCloseModal={() => this.handleAgreementFormCloseModal() }/>
 					</Modal>
 				</div>
 			)
