@@ -8,6 +8,19 @@ export function fetchAgreementList(){
 	};
 }
 
+export function fetchAgreementDetail(id){
+	var agreement = {};
+	for(var i = 0; i <  agreementsList.length; i++){
+		if(agreementsList[i].id == id){
+			agreement = agreementsList[i];
+			break;
+		}
+	}
+	return dispatch => {
+		return dispatch({type: actionTypes.SHOW_AGREEMENT, agreementDetail: agreement})
+	};
+}
+
 
 export function addOrUpdateToAgreementList(agreement) {
     var agreements = agreementsList;

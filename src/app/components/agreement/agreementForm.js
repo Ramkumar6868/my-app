@@ -1,9 +1,10 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom';
+
 import * as agreementActions from '../../../actions/agreementActions.js';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
 import * as farmerActions from '../../../actions/farmerActions.js';
 
 class AgreementForm extends React.Component{
@@ -11,24 +12,49 @@ class AgreementForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			agreementFormDetail: {...this.props.agreementFormDetail},
+			agreementFormDetail: {
+				farmer: {},
+				groundnutType: "khalo",
+				rate: 0.00,
+				weight: 0.00,
+				groundnutPercente: 0.00,
+				weightCut: 0.00,
+				actualTotalPayment: 0.00,
+				totalPayment: 0.00,
+				moisture: 0.00,
+				place: "",
+				agreementDate: "",
+				extraInfo: ""
+			},
 			farmerSelectId: 0,
-			isEditAgreementDetail: this.props.isEditAgreementDetail
+			isEditAgreementDetail: false,
+			farmersList: []
 
 		}
-		// console.log(this.state.agreementFormDetail)
 		this.submitAgreementForm = this.submitAgreementForm.bind(this);
 		this.selectFarmer = this.selectFarmer.bind(this);
-		this.handleAgreementFormCloseModal = this.handleAgreementFormCloseModal.bind(this);
 		this.handleOnChange = this.handleOnChange.bind(this);
 	}
 
 
 	componentWillMount(){
-		this.props.farmerActions.fetchFarmerList();
-		if(this.props.agreementFormDetail.farmer && this.props.agreementFormDetail.farmer.id){
+
+		var farmersList = this.props.farmerActions.fetchFarmerList();
+		var agreementDetail = {}
+		if(this.props.match.params.id){
+			agreementDetail = this.props.agreementActions.fetchAgreementDetail(this.props.match.params.id)
+			if(agreementDetail && agreementDetail.agreementDetail){
+				this.setState({
+					agreementFormDetail: agreementDetail.agreementDetail,
+					farmerSelectId: agreementDetail.agreementDetail.farmer.id,
+					isEditAgreementDetail: true,
+					toRedirect: false
+				});
+			}
+		}
+		if(farmersList && farmersList.farmersList && farmersList.farmersList.length > 0){
 			this.setState({
-				farmerSelectId: this.props.agreementFormDetail.farmer.id
+				farmersList: farmersList.farmersList
 			});
 		}
 	}
@@ -38,37 +64,35 @@ class AgreementForm extends React.Component{
 
 	submitAgreementForm(event){
 		event.preventDefault();
-		console.log(this.state.agreementFormDetail)
-		this.props.agreementActions.addOrUpdateToAgreementList(this.state.agreementFormDetail)
-		this.props.handleAgreementFormCloseModal();
-	}
-
-	handleAgreementFormCloseModal(event){
-		event.preventDefault();
-		this.props.handleAgreementFormCloseModal();
+		console.log(this.state.agreementFormDetail);
+		this.props.agreementActions.addOrUpdateToAgreementList(this.state.agreementFormDetail);
+		this.setState({
+			toRedirect: true
+		});
 	}
 
 	handleOnChange(event){
 		event.preventDefault();
-		const agreementFormDetail = this.state.agreementFormDetail;
+		var agreementFormDetail = this.state.agreementFormDetail;
 		agreementFormDetail[event.target.name] = event.target.value;
 		this.setState({
 			agreementFormDetail: agreementFormDetail
 		});
-		console.log(this.state.agreementFormDetail)
 	}
 
 	selectFarmer(selectedOption){
-		const agreementFormDetail = this.state.agreementFormDetail;
+		var agreementFormDetail = this.state.agreementFormDetail;
 		agreementFormDetail[selectedOption.target.name] = this.props.farmersList[selectedOption.target.value];
 		this.setState({
 			agreementFormDetail: agreementFormDetail,
 			farmerSelectId: agreementFormDetail.farmer.id
 		});
-		console.log(this.state.agreementFormDetail)
 	}
 
 	render(){
+		if(this.state.toRedirect){
+			return <Redirect to='/agreement' />
+		}
 		return(
 			<div>
 				<h2 className="bg-secondary text-center rounded-top">Create/Update Agreement</h2>
@@ -82,7 +106,7 @@ class AgreementForm extends React.Component{
 					    	name="farmer"
 					    >
 					    	{this.props.farmersList.map((farmer, index) => {
-					    		return (<option value={index} key={index}>{farmer.firstName + " " + farmer.lastName}</option>)
+					    		return (<option value={index} key={index}>{farmer.firstName + " " + farmer.lastName + " S/O " + farmer.fatherName + ", " + farmer.village}</option>)
 					    	})
 					    	}
 					    </select>
@@ -108,7 +132,7 @@ class AgreementForm extends React.Component{
 
 					{this.state.isEditAgreementDetail && (
 						<div className="form-group">
-							<label>Total payment of {this.state.agreementFormDetail.weigth}KG</label>
+							<label>Total payment of {this.state.agreementFormDetail.weight}KG</label>
 						    <input name="totalPayment" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.totalPayment} onChange={this.handleOnChange} placeholder="Enter Percente of Groundnut" readOnly/>
 						</div>)
 					}
@@ -123,15 +147,15 @@ class AgreementForm extends React.Component{
 
 					{this.state.isEditAgreementDetail && (
 						<div className="form-group">
-							<label>Weigth</label>
-						    <input name="weigth" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.weigth} onChange={this.handleOnChange} readOnly/>
+							<label>Weight</label>
+						    <input name="weight" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.weight} onChange={this.handleOnChange} readOnly/>
 						</div>)
 					}
 
 					{this.state.isEditAgreementDetail && (
 						<div className="form-group">
-							<label>Weigth Cut</label>
-						    <input name="weigthCut" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.weigthCut} onChange={this.handleOnChange} readOnly/>
+							<label>Weight Cut</label>
+						    <input name="weightCut" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.weightCut} onChange={this.handleOnChange} readOnly/>
 						</div>)
 					}
 
@@ -169,14 +193,14 @@ class AgreementForm extends React.Component{
 
 AgreementForm.propTypes = {
 	agreementActions: PropTypes.object,
-	agreementsList: PropTypes.array,
+	agreementDetail: PropTypes.object,
 	farmerActions: PropTypes.object,
 	farmersList: PropTypes.array
 }
 
 function mapStateToProps(state){
 	return {
-		agreementsList: state.agreement,
+		agreementDetail: state.agreementDetail,
 		farmersList: state.farmer
 	};
 }

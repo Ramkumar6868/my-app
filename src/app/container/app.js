@@ -2,10 +2,11 @@ import React from 'react';
 import Header from './header.js';
 import Footer from './footer.js';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import StuffList from '../components/stuffList.js';
 import Home from '../components/home.js';
 import Farmer from '../components/farmer/farmer.js';
 import Agreement from '../components/agreement/agreement.js';
+import AgreementDetail from '../components/agreement/agreementDetail.js';
+import AgreementForm from '../components/agreement/agreementForm.js';
 
 export default class MyApp extends React.Component {
 	render() {
@@ -22,8 +23,9 @@ export default class MyApp extends React.Component {
 							<Switch>
 								<Route exact path='/' component={Home}/>
 							  	<Route path='/farmer' component={Farmer}/>
-							  	<Route path='/agreement' component={Agreement}/>
-							  	<Route path='/agreement/:id' component={Agreement}/>
+							  	<Route exact path='/agreement_details/:id' component={AgreementDetail}/>
+							  	<Route exact path='/agreement' component={Agreement}/>
+							  	<Route path='/agreement/new/:id?' component={AgreementForm}/>
 							</Switch>
 						</div>
 						<div className="col-xl-1"></div>

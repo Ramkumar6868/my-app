@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import StuffList from '../components/stuffList.js'
+
 export default class Header extends React.Component {
 	render() {
 

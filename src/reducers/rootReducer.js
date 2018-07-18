@@ -1,12 +1,14 @@
 import {combineReducers} from 'redux';
-import stuff from './stuffReducer.js';
 import farmer from './farmerReducer.js';
 import agreement from './agreementsReducer.js';
+import {agreementDetail} from './agreementsReducer.js';
+import {deliveryDetails} from './deliveryReducer.js';
 
 const rootReducer = combineReducers({
-	stuff,
 	farmer,
-	agreement
+	agreement,
+	agreementDetail,
+	deliveryDetails
 })
 
 export default rootReducer;

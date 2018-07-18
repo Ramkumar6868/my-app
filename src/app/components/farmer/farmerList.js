@@ -1,6 +1,5 @@
 import React from 'react';
 import FarmerForm from './farmerForm.js';
-import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 
 
