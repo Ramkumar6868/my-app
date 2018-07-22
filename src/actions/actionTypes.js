@@ -7,3 +7,17 @@ export const FETCH_FARMER = "FETCH_FARMER";
 export const RECEIVE_FARMER = "RECEIVE_FARMER";
 
 export const ADD_FARMER = "ADD_FARMER";
+
+export const RECEIVE_AGREEMENT = "RECEIVE_AGREEMENT";
+
+export const SHOW_AGREEMENT = "SHOW_AGREEMENT";
+
+export const SHOW_FARMER = "SHOW_FARMER";
+
+export const ADD_AGREEMENT = "ADD_AGREEMENT"
+
+export const RECEIVE_DELIVERIES = "RECEIVE_DELIVERIES"
+
+export const SHOW_DELIVERY = "SHOW_DELIVERY"
+
+export const ADD_DELIVERY = "ADD_DELIVERY"
