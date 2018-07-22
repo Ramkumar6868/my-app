@@ -4,6 +4,15 @@ import { connect } from 'react-redux';
 import * as agreementActions from '../../../actions/agreementActions.js';
 import PropTypes from 'prop-types';
 import DeliveryDetail from '../delivery/deliveryDetails.js';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TableFooter from '@material-ui/core/TableFooter';
+import Button from '@material-ui/core/Button';
 
 class AgreementDetail extends React.Component{
 	constructor(props){
@@ -23,69 +32,79 @@ class AgreementDetail extends React.Component{
 	render(){
 		if(this.props.agreementDetail){
 		return(
-			<div>
-				<h2 className="bg-secondary text-center rounded-top">Agreement Detail</h2>
-				<div className="row">	
-					<table className="table table-striped table-bordered">
-						<tbody>
-							<tr>
-								<td><b>Farmer Name</b></td>
-								<td>{this.state.agreementDetail.farmer.firstName+ " " + this.state.agreementDetail.farmer.lastName}</td>
-							</tr>
-							<tr>
-								<td><b>Father Name</b></td>
-								<td>{this.state.agreementDetail.farmer.fatherName}</td>
-							</tr>
-							<tr>
-								<td><b>Groundnut Type</b></td>
-								<td>{this.state.agreementDetail.groundnutType}</td>
-							</tr>
-							<tr>
-								<td><b>Rate(per Qvintal.)</b></td>
-								<td>{this.state.agreementDetail.rate}</td>
-							</tr>						
-							<tr>
-								<td><b>Date</b></td>
-								<td>{this.state.agreementDetail.agreementDate}</td>
-							</tr>
-							<tr>
-								<td><b>Weight(in Kg)</b></td>
-								<td>{this.state.agreementDetail.weight}</td>
-							</tr>
-							<tr>
-								<td><b>Weight Cut(in Kg)</b></td>
-								<td>{this.state.agreementDetail.weightCut}</td>
-							</tr>
-							<tr>
-								<td><b>Moisture(in %)</b></td>
-								<td>{this.state.agreementDetail.moisture}</td>
-							</tr>
-							<tr>
-								<td><b>Total Payment</b></td>
-								<td>{this.state.agreementDetail.totalPayment}</td>
-							</tr>
-							<tr>
-								<td><b>Real Payment</b></td>
-								<td>{this.state.agreementDetail.actualTotalPayment}</td>
-							</tr>
-							<tr>
-								<td><b>Place where agreement done</b></td>
-								<td>{this.state.agreementDetail.place}</td>
-							</tr>
-							<tr>
-								<td><b>Extra Info</b></td>
-								<td>{this.state.agreementDetail.extraInfo}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div className="row">
-					<button className="btn btn-primary float-right">Edit Agreement</button>
-				</div>
-				<div className="row">
+			<Grid item lg={12}>
+				<Grid item>
+					<Paper elevation={1}>
+						<Typography variant="headline" component="h1" className="center grey">
+							Agreement Detail
+						</Typography>
+						<Typography component="div">
+							<Table className="striped">
+								<TableBody>
+									<TableRow>
+										<TableCell><b>Farmer Name</b></TableCell>
+										<TableCell>{this.state.agreementDetail.farmer.firstName+ " " + this.state.agreementDetail.farmer.lastName}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Father Name</b></TableCell>
+										<TableCell>{this.state.agreementDetail.farmer.fatherName}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Groundnut Type</b></TableCell>
+										<TableCell>{this.state.agreementDetail.groundnutType}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Rate(per Qvintal.)</b></TableCell>
+										<TableCell>{this.state.agreementDetail.rate}</TableCell>
+									</TableRow>						
+									<TableRow>
+										<TableCell><b>Date</b></TableCell>
+										<TableCell>{this.state.agreementDetail.agreementDate}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Weight(in Kg)</b></TableCell>
+										<TableCell>{this.state.agreementDetail.weight}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Weight Cut(in Kg)</b></TableCell>
+										<TableCell>{this.state.agreementDetail.weightCut}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Moisture(in %)</b></TableCell>
+										<TableCell>{this.state.agreementDetail.moisture}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Total Payment</b></TableCell>
+										<TableCell>{this.state.agreementDetail.totalPayment}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Real Payment</b></TableCell>
+										<TableCell>{this.state.agreementDetail.actualTotalPayment}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Place where agreement done</b></TableCell>
+										<TableCell>{this.state.agreementDetail.place}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell><b>Extra Info</b></TableCell>
+										<TableCell>{this.state.agreementDetail.extraInfo}</TableCell>
+									</TableRow>
+								</TableBody>
+								<TableFooter>
+									<TableRow>
+										<TableCell>
+											<Button variant="contained" href="" className="right">Edit Agreement</Button>
+										</TableCell>
+									</TableRow>
+								</TableFooter>
+							</Table>
+						</Typography>
+					</Paper>
+				</Grid>
+				<Grid>
 					<DeliveryDetail agreement_id={this.state.agreementDetail.id}/>
-				</div>
-			</div>
+				</Grid>
+			</Grid>
 		)} else {
 			return (
 				<div>Agreement Detail Loading...</div>

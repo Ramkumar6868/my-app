@@ -2,7 +2,15 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom';
-
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import * as agreementActions from '../../../actions/agreementActions.js';
 import PropTypes from 'prop-types';
 import * as farmerActions from '../../../actions/farmerActions.js';
@@ -81,11 +89,12 @@ class AgreementForm extends React.Component{
 	}
 
 	selectFarmer(selectedOption){
+		console.log(selectedOption.target.value)
 		var agreementFormDetail = this.state.agreementFormDetail;
-		agreementFormDetail[selectedOption.target.name] = this.props.farmersList[selectedOption.target.value];
+		agreementFormDetail["farmer"] = this.props.farmersList[selectedOption.target.value];
 		this.setState({
 			agreementFormDetail: agreementFormDetail,
-			farmerSelectId: agreementFormDetail.farmer.id
+			farmerSelectId: selectedOption.target.value
 		});
 	}
 
@@ -94,99 +103,102 @@ class AgreementForm extends React.Component{
 			return <Redirect to='/agreement' />
 		}
 		return(
-			<div>
-				<h2 className="bg-secondary text-center rounded-top">Create/Update Agreement</h2>
-				<form onSubmit={this.submitAgreementForm}>
-					<div className="form-group">
-					    <label>Select Farmer Name</label>
-					    <select
-					    	value={this.state.farmerSelectId}
-					    	onChange={this.selectFarmer}
-					    	className="form-control"
-					    	name="farmer"
-					    >
-					    	{this.props.farmersList.map((farmer, index) => {
-					    		return (<option value={index} key={index}>{farmer.firstName + " " + farmer.lastName + " S/O " + farmer.fatherName + ", " + farmer.village}</option>)
-					    	})
-					    	}
-					    </select>
-					</div>
+			<Grid>
+				<Grid item>
+					<Typography variant="headline" component="h1" className="center grey">
+						Agreement Detail
+					</Typography>
+					<Typography component="div">
+						<form onSubmit={this.submitAgreementForm}>
+							<FormControl fullWidth margin="normal">
+							    <InputLabel>Select Farmer Name</InputLabel>
+							    <Select
+							    	value={this.state.farmerSelectId}
+							    	onChange={this.selectFarmer}
+							    	name="farmer"
+							    >
+							    	{this.props.farmersList.map((farmer, index) => {
+							    		return (<MenuItem value={index} key={index}>{farmer.firstName + " " + farmer.lastName + " S/O " + farmer.fatherName + ", " + farmer.village}</MenuItem>)
+							    	})
+							    	}
+							    </Select>
+							</FormControl>
 
-					<div className="form-group">
-					    <label>Select Groundnut Type</label>
-					    <select
-					    	value={this.state.agreementFormDetail.groundnutType}
-					    	onChange={this.handleOnChange}
-					    	name="groundnutType"
-					    	className="form-control"
-					    >
-					    	<option value="khalo">khalo</option>
-					    	<option value="chugo">chugo</option>
-					    </select>
-					</div>
+							<FormControl fullWidth margin="normal">
+							    <InputLabel>Select Groundnut Type</InputLabel>
+							    <Select
+							    	value={this.state.agreementFormDetail.groundnutType}
+							    	onChange={this.handleOnChange}
+							    	name="groundnutType"
+							    >
+							    	<MenuItem value="khalo">khalo</MenuItem>
+							    	<MenuItem value="chugo">chugo</MenuItem>
+							    </Select>
+							</FormControl>
 
-					<div className="form-group">
-						<label>Rate/KG</label>
-					    <input name="rate" className="form-control" type="number" step="0.01" value={this.state.agreementFormDetail.rate} onChange={this.handleOnChange} placeholder="Enter rate of agreement"/>
-					</div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Rate/KG</InputLabel>
+							    <Input name="rate" type="number" step="0.01" value={this.state.agreementFormDetail.rate}  onChange={this.handleOnChange} placeholder="Enter rate of agreement"/>
+							</FormControl>
 
-					{this.state.isEditAgreementDetail && (
-						<div className="form-group">
-							<label>Total payment of {this.state.agreementFormDetail.weight}KG</label>
-						    <input name="totalPayment" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.totalPayment} onChange={this.handleOnChange} placeholder="Enter Percente of Groundnut" readOnly/>
-						</div>)
-					}
+							{this.state.isEditAgreementDetail && (
+								<FormControl fullWidth margin="normal">
+									<InputLabel>Total payment of {this.state.agreementFormDetail.weight}KG</InputLabel>
+								    <Input name="totalPayment" type="number" step="1" value={this.state.agreementFormDetail.totalPayment} onChange={this.handleOnChange} placeholder="Enter Percente of Groundnut" readOnly/>
+								</FormControl>)
+							}
 
 
-					{this.state.isEditAgreementDetail && (
-						<div className="form-group">
-							<label>Actual Payment Done</label>
-						    <input name="actualTotalPayment" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.actualTotalPayment} onChange={this.handleOnChange} readOnly/>
-						</div>)
-					}
+							{this.state.isEditAgreementDetail && (
+								<FormControl fullWidth margin="normal">
+									<InputLabel>Actual Payment Done</InputLabel>
+								    <Input name="actualTotalPayment" type="number" step="1" value={this.state.agreementFormDetail.actualTotalPayment} onChange={this.handleOnChange} readOnly/>
+								</FormControl>)
+							}
 
-					{this.state.isEditAgreementDetail && (
-						<div className="form-group">
-							<label>Weight</label>
-						    <input name="weight" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.weight} onChange={this.handleOnChange} readOnly/>
-						</div>)
-					}
+							{this.state.isEditAgreementDetail && (
+								<FormControl fullWidth margin="normal">
+									<InputLabel>Weight</InputLabel>
+								    <Input name="weight" type="number" step="1" value={this.state.agreementFormDetail.weight} onChange={this.handleOnChange} readOnly/>
+								</FormControl>)
+							}
 
-					{this.state.isEditAgreementDetail && (
-						<div className="form-group">
-							<label>Weight Cut</label>
-						    <input name="weightCut" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.weightCut} onChange={this.handleOnChange} readOnly/>
-						</div>)
-					}
+							{this.state.isEditAgreementDetail && (
+								<FormControl fullWidth margin="normal">
+									<InputLabel>Weight Cut</InputLabel>
+								    <Input name="weightCut" type="number" step="1" value={this.state.agreementFormDetail.weightCut} onChange={this.handleOnChange} readOnly/>
+								</FormControl>)
+							}
 
-					<div className="form-group">
-						<label>Place Where Agreement Done</label>
-					    <input name="place" className="form-control" type="text" value={this.state.agreementFormDetail.place} onChange={this.handleOnChange} placeholder="Enter name of place"/>
-					</div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Place Where Agreement Done</InputLabel>
+							    <Input name="place" type="text" value={this.state.agreementFormDetail.place} onChange={this.handleOnChange} placeholder="Enter name of place"/>
+							</FormControl>
 
-					<div className="form-group">
-						<label>Agreement Date</label>
-					    <input name="agreementDate" className="form-control" type="date" value={this.state.agreementFormDetail.agreementDate} onChange={this.handleOnChange} placeholder="Enter Date of Agreement" format="dd/mm/yyyy"/>
-					</div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Agreement Date</InputLabel>
+							    <Input name="agreementDate" type="date" value={this.state.agreementFormDetail.agreementDate} onChange={this.handleOnChange} placeholder="Enter Date of Agreement" format="dd/mm/yyyy"/>
+							</FormControl>
 
-					<div className="form-group">
-						<label>Groundnut Percente</label>
-					    <input name="groundnutPercente" className="form-control" type="number" step="1" value={this.state.agreementFormDetail.groundnutPercente} onChange={this.handleOnChange} placeholder="Enter Percente of Groundnut"/>
-					</div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Groundnut Percente</InputLabel>
+							    <Input name="groundnutPercente" type="number" step="1" value={this.state.agreementFormDetail.groundnutPercente} onChange={this.handleOnChange} placeholder="Enter Percente of Groundnut"/>
+							</FormControl>
 
-					<div className="form-group">
-						<label>Moisture Percente</label>
-					    <input name="moisture" className="form-control" type="number" step="0.01" value={this.state.agreementFormDetail.moisture} onChange={this.handleOnChange} placeholder="Enter Moisture Percente of Groundnut"/>
-					</div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Moisture Percente</InputLabel>
+							    <Input name="moisture" type="number" step="0.01" value={this.state.agreementFormDetail.moisture} onChange={this.handleOnChange} placeholder="Enter Moisture Percente of Groundnut"/>
+							</FormControl>
 
-				  	<div className="form-group">
-				    	<label>Extra Info</label>
-				    	<textarea name="extraInfo" className="form-control" value={this.state.agreementFormDetail.extraInfo} onChange={this.handleOnChange} placeholder="Extra Information about farmer" rows="3"></textarea>
-				  	</div>
-				  	<button className="btn btn-secondary" onClick={this.handleAgreementFormCloseModal}>cancel</button>
-				  	<button type="submit" className="btn btn-primary float-right">Submit</button>
-				</form>
-			</div>
+						  	<FormControl fullWidth margin="normal">
+						    	<TextField label="Extra Info" name="extraInfo" value={this.state.agreementFormDetail.extraInfo} onChange={this.handleOnChange} placeholder="Extra Information about farmer" multiline rowsMax="4" margin="normal"></TextField>
+						  	</FormControl>
+						  	<Button variant="contained" onClick={this.handleAgreementFormCloseModal}>back</Button>
+						  	<Button type="submit" variant="contained" color="primary" className="right">Submit</Button>
+						</form>
+					</Typography>
+				</Grid>
+			</Grid>
 		)
 	}
 }

@@ -12,7 +12,7 @@ export function fetchAgreementDetail(id){
 	var agreement = {};
 	for(var i = 0; i <  agreementsList.length; i++){
 		if(agreementsList[i].id == id){
-			agreement = agreementsList[i];
+			agreement = {...agreementsList[i]};
 			break;
 		}
 	}

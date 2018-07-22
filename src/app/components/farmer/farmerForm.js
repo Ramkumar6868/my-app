@@ -1,29 +1,43 @@
 import React from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+
 import * as farmerActions from '../../../actions/farmerActions';
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 class FarmerForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			farmerFormDetail: {...this.props.farmerFormDetail}
+			farmerFormDetail: {
+				firstName: "",
+				lastName: "",
+				fatherName: "",
+				village: "",
+				city: "",
+				mobileNumber: "",
+				extraInfo: ""
+			}
 		};
 		this.submitFarmerForm = this.submitFarmerForm.bind(this);
 		this.handleOnChange = this.handleOnChange.bind(this);
-		this.handleCloseModel = this.handleCloseModel.bind(this);
-	}
-
-	handleCloseModel(event){
-		event.preventDefault();
-		this.props.handleCloseModel();
 	}
 
 	submitFarmerForm(event){
 		event.preventDefault();
 		this.props.farmerActions.addToFarmerList(this.state.farmerFormDetail);
-		this.props.handleCloseModel();
+		this.setState({
+			toRedirect: true
+		});
 	}
 
 	handleOnChange(event){
@@ -35,48 +49,66 @@ class FarmerForm extends React.Component{
 		});
 	}
 
+	componentWillMount(){
+		if(this.props.match.params.id){
+			var farmerFormDetail = this.props.farmerActions.fetchFarmerDetail(this.props.match.params.id).farmerDetail
+			this.setState({
+				farmerFormDetail: farmerFormDetail,
+				toRedirect: false
+			});
+		}
+	}
+
 	render(){
+		if(this.state.toRedirect){
+			return <Redirect to='/farmer' />
+		}
 		return(
-			<div>
-				<h2 className="bg-secondary text-center rounded-top">Enter/Update Farmer Details</h2>
-				<form onSubmit={this.submitFarmerForm}>
-				  <div className="form-group">
-				    <label htmlFor="formGroupExampleInput">First name</label>
-				    <input type="text" name="firstName" className="form-control" value={this.state.farmerFormDetail.firstName} onChange={this.handleOnChange} placeholder="Enter farmer first name"/>
-				  </div>
-				  <div className="form-group">
-				    <label htmlFor="formGroupExampleInput2">Last Name</label>
-				    <input type="text" name="lastName" className="form-control" value={this.state.farmerFormDetail.lastName} onChange={this.handleOnChange} placeholder="Enter farmer last name"/>
-				  </div>
+			<Grid>
+				<Grid item>
+					<Typography variant="headline" component="h1" className="center grey">
+						Enter/Update Farmer Details
+					</Typography>
+					<Typography component="div">
+						<form onSubmit={this.submitFarmerForm}>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>First name</InputLabel>
+								<Input type="text" name="firstName" value={this.state.farmerFormDetail.firstName} onChange={this.handleOnChange} placeholder="Enter farmer first name"/>
+							</FormControl>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Last Name</InputLabel>
+								<Input type="text" name="lastName" value={this.state.farmerFormDetail.lastName} onChange={this.handleOnChange} placeholder="Enter farmer last name"/>
+							</FormControl>
 
-				  <div className="form-group">
-				    <label htmlFor="formGroupExampleInput2">Father Name</label>
-				    <input type="text" name="fatherName" className="form-control" value={this.state.farmerFormDetail.fatherName} onChange={this.handleOnChange} placeholder="Enter farmer father name"/>
-				  </div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Father Name</InputLabel>
+								<Input type="text" name="fatherName" value={this.state.farmerFormDetail.fatherName} onChange={this.handleOnChange} placeholder="Enter farmer father name"/>
+							</FormControl>
 
-				  <div className="form-group">
-				    <label htmlFor="formGroupExampleInput2">Village</label>
-				    <input type="text" name="village" className="form-control" value={this.state.farmerFormDetail.village} onChange={this.handleOnChange} placeholder="Enter farmer village"/>
-				  </div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Village</InputLabel>
+								<Input type="text" name="village" value={this.state.farmerFormDetail.village} onChange={this.handleOnChange} placeholder="Enter farmer village"/>
+							</FormControl>
 
-				  <div className="form-group">
-				    <label htmlFor="formGroupExampleInput2">City</label>
-				    <input type="text" name="city" className="form-control" value={this.state.farmerFormDetail.city} onChange={this.handleOnChange} placeholder="Enter farmer city"/>
-				  </div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>City</InputLabel>
+								<Input type="text" name="city" value={this.state.farmerFormDetail.city} onChange={this.handleOnChange} placeholder="Enter farmer city"/>
+							</FormControl>
 
-				  <div className="form-group">
-				    <label htmlFor="formGroupExampleInput2">Mobile Number</label>
-				    <input type="text" name="mobileNumber" className="form-control" value={this.state.farmerFormDetail.mobileNumber} onChange={this.handleOnChange} placeholder="Enter farmer mobile number"/>
-				  </div>
+							<FormControl fullWidth margin="normal">
+								<InputLabel>Mobile Number</InputLabel>
+								<Input type="text" name="mobileNumber" value={this.state.farmerFormDetail.mobileNumber} onChange={this.handleOnChange} placeholder="Enter farmer mobile number"/>
+							</FormControl>
 
-				  <div className="form-group">
-				    <label htmlFor="formGroupExampleInput2">Extra Info</label>
-				    <textarea name="extraInfo" className="form-control" value={this.state.farmerFormDetail.extraInfo} onChange={this.handleOnChange} placeholder="Extra Information about farmer" rows="3"></textarea>
-				  </div>
-				  <button className="btn btn-secondary" onClick={this.handleCloseModel}>cancel</button>
-				  <button type="submit" className="btn btn-primary float-right">Submit</button>
-				</form>
-			</div>
+							<FormControl fullWidth margin="normal">
+								<TextField name="extraInfo" value={this.state.farmerFormDetail.extraInfo} onChange={this.handleOnChange} placeholder="Extra Information about farmer" multiline rowsMax="3" margin="normal" label="Extra Information"></TextField>
+							</FormControl>
+							<Button variant="contained">Back</Button>
+							<Button type="submit" variant="contained" color="primary" className="right">Submit</Button>
+						</form>
+					</Typography>
+				</Grid>
+			</Grid>
 		)
 	}
 }
@@ -84,12 +116,13 @@ class FarmerForm extends React.Component{
 
 FarmerForm.propTypes = {
 	farmerActions: PropTypes.object,
-	farmerLists: PropTypes.array
+	farmerDetail: PropTypes.object
 }
 
 function mapStateToProps(state){
 	return {
-		farmerList: state.farmer
+		farmerDetail: state.farmerDetail,
+
 	};
 }
 

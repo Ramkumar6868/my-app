@@ -3,20 +3,37 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as deliveryActions from '../../../actions/deliveryActions.js';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+
 
 function RenderTableRaw(props){
 	return(
-		<tr key={props.data.id}>
-			<td>{props.data.vehicleType}</td>
-			<td>{props.data.vehicleNumber}</td>
-			<td>{(props.data.emptyWeight).toFixed(2)}Kg</td>
-			<td>{(props.data.fullWeight).toFixed(2)}Kg</td>
-			<td>{(props.data.weightCut).toFixed(2)}Kg</td>
-			<td>{(props.data.fullWeight - props.data.emptyWeight - props.data.weightCut).toFixed(2)}Kg</td>
-			<td>{props.data.date}</td>
-			<td>{props.data.extraInfo}</td>
-			<td>edit</td>
-		</tr>
+		<TableRow key={props.data.id}>
+			<TableCell>{props.data.vehicleType}</TableCell>
+			<TableCell>{props.data.vehicleNumber}</TableCell>
+			<TableCell>{parseFloat(props.data.emptyWeight).toFixed(2)}Kg</TableCell>
+			<TableCell>{parseFloat(props.data.fullWeight).toFixed(2)}Kg</TableCell>
+			<TableCell>{parseFloat(props.data.weightCut).toFixed(2)}Kg</TableCell>
+			<TableCell>{parseFloat(props.data.fullWeight - props.data.emptyWeight - props.data.weightCut).toFixed(2)}Kg</TableCell>
+			<TableCell>{props.data.date}</TableCell>
+			<TableCell>{props.data.extraInfo}</TableCell>
+			<TableCell>
+				<Link to={"/delivery/" + props.agreement_id + "/new/" + props.data.id}>
+					<Button variant="outlined" href="">
+						Edit
+					</Button>
+				</Link>
+			</TableCell>
+		</TableRow>
 	)
 }
 
@@ -47,33 +64,42 @@ class DeliveryDetail extends React.Component {
 			)
 		} else {
 			return(
-				<div>
-					<h2 className="bg-secondary text-center rounded-top">Delivery Details</h2>
-					<table className="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>Vehicle Type</th>
-								<th>Vehicle Number</th>
-								<th>Empty Weight</th>
-								<th>Full Weight</th>
-								<th>Weight Cut</th>
-								<th>GroundNut Weight</th>
-								<th>Date of Delivery</th>
-								<th>Extra Info</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							{
-								this.props.deliveryDetails.map((dd, index) => {
-									return (
-										<RenderTableRaw key={dd.id} data={dd}/>
-									)
-								})
-							}
-						</tbody>
-					</table>
-				</div>
+				<Grid>
+					<Paper elevation={1}>
+						<Typography variant="headline" component="h1" className="center grey">
+							Delivery Details
+						</Typography>
+						<Typography component="div">
+							<Table className="striped responsive-table">
+								<TableHead>
+									<TableRow>
+										<TableCell>Vehicle Type</TableCell>
+										<TableCell>Vehicle Number</TableCell>
+										<TableCell>Empty Weight</TableCell>
+										<TableCell>Full Weight</TableCell>
+										<TableCell>Weight Cut</TableCell>
+										<TableCell>GroundNut Weight</TableCell>
+										<TableCell>Date of Delivery</TableCell>
+										<TableCell>Extra Info</TableCell>
+										<TableCell></TableCell>
+									</TableRow>
+								</TableHead>
+								<TableBody>
+									{
+										this.props.deliveryDetails.map((dd, index) => {
+											return (
+												<RenderTableRaw key={dd.id} data={dd} agreement_id={this.state.agreement_id}/>
+											)
+										})
+									}
+								</TableBody>
+							</Table>
+							<Link to={"/delivery/"+ this.props.agreement_id +"/new/"} >
+								<Button variant="outlined" href="" className="right">New Delivery</Button>
+							</Link>
+						</Typography>
+					</Paper>
+				</Grid>
 			)
 		}
 	}

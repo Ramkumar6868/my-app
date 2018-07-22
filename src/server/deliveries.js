@@ -2,7 +2,7 @@ export const deliveryDetails = [
 	{
 		id: 1,
 		agreement_id: 1,
-		vehicleType: "Pickup",
+		vehicleType: "Pick-up",
 		vehicleNumber: "RJ50GA7772",
 		emptyWeight: 1982.20,
 		fullWeight: 3020.50,

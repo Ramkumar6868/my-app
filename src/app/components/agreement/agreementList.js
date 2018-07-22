@@ -4,6 +4,16 @@ import {connect} from 'react-redux';
 import * as agreementActions from '../../../actions/agreementActions.js';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+
 
 // const modalStyle = {
 // 	content: {
@@ -22,23 +32,25 @@ import {Link} from 'react-router-dom';
 
 function RenderTableRaw(props){
 	return(
-		<tr>
-			<td>{props.agreement.farmer.firstName + " " + props.agreement.farmer.lastName}</td>
-			<td>{props.agreement.farmer.fatherName}</td>
-			<td>{props.agreement.farmer.village}</td>
-			<td>{props.agreement.groundnutType}</td>
-			<td>{props.agreement.rate}</td>
-			<td>{props.agreement.extraInfo}</td>
-			<td>
+		<TableRow>
+			<TableCell>{props.agreement.farmer.firstName + " " + props.agreement.farmer.lastName}</TableCell>
+			<TableCell>{props.agreement.farmer.fatherName}</TableCell>
+			<TableCell>{props.agreement.farmer.village}</TableCell>
+			<TableCell>{props.agreement.groundnutType}</TableCell>
+			<TableCell>{props.agreement.rate}</TableCell>
+			<TableCell>{props.agreement.extraInfo}</TableCell>
+			<TableCell>
 				
 				<Link to={"/agreement_details/" + props.agreement.id} >
-					<button className="btn btn-primary">Details</button>
+					<Button variant="outlined" href="" className="right">Details</Button>
 				</Link>
-				<Link to={"/delivery/new/" + props.agreement.id} >
-					<button className="btn btn-primary">New Delivary</button>
+			</TableCell>
+			<TableCell>
+				<Link to={"/delivery/"+ props.agreement.id +"/new/"} >
+					<Button variant="outlined" href="" className="right">Delivery</Button>
 				</Link>
-			</td>
-		</tr>
+			</TableCell>
+		</TableRow>
 	)
 }
 
@@ -109,45 +121,54 @@ class AgreementsList extends React.Component{
 	render(){
 		if(!this.props.agreementsList){
 			return(
-				<div>
+				<Grid className="gridContainer">
 					Loading Agreements List...
-				</div>
+				</Grid>
 			);
 		} else{
 			return(
-
-				<div>
-					<table className="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>Farmer Name</th>
-								<th>Father Name</th>
-								<th>Village</th>
-								<th>Groundnut Type</th>
-								<th>Rate</th>
-								<th>Extra Information</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							{
-								// console.log(this.props.agreementsList)
-								this.props.agreementsList.map((agreement, index) =>{
-									return(
-										<RenderTableRaw key={agreement.id} agreement={agreement}/>
-									);
-								})
-							}
-						</tbody>
-					</table>
-					<div>
-		            	<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#agreementNew">
-		            		<Link to="agreement/new">
-								Entry New Agreement
-							</Link>
-						</button>
-		            </div>
-				</div>
+				<Grid>
+					<Grid item>
+						<Paper elevation={1}>
+							<Typography variant="headline" component="h1" className="center grey">
+								Agreement Detail
+							</Typography>
+							<Typography component="div">
+								<Table className="striped">
+									<TableHead>
+										<TableRow>
+											<TableCell>Farmer Name</TableCell>
+											<TableCell>Father Name</TableCell>
+											<TableCell>Village</TableCell>
+											<TableCell>Groundnut Type</TableCell>
+											<TableCell>Rate</TableCell>
+											<TableCell>Extra Information</TableCell>
+											<TableCell>Details</TableCell>
+											<TableCell>Delivery</TableCell>
+										</TableRow>
+									</TableHead>
+									<TableBody>
+										{
+											// console.log(this.props.agreementsList)
+											this.props.agreementsList.map((agreement, index) =>{
+												return(
+													<RenderTableRaw key={agreement.id} agreement={agreement}/>
+												);
+											})
+										}
+									</TableBody>
+								</Table>
+							</Typography>
+						</Paper>
+					</Grid>
+					<Grid item>
+							<Link to="agreement/new">
+								<Button variant="outlined" href="" className="right">
+									Entry New Agreement
+								</Button>
+						</Link>
+					</Grid>
+				</Grid>
 			)
 		}
 	}
