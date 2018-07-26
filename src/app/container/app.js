@@ -10,6 +10,11 @@ import Agreement from '../components/agreement/agreement.js';
 import AgreementDetail from '../components/agreement/agreementDetail.js';
 import AgreementForm from '../components/agreement/agreementForm.js';
 import DeliveryForm from '../components/delivery/deliveryForm.js';
+import ExportsEntitiesList from '../components/exportsEntities/exportsEntitiesList.js';
+import ExportsEntityForm from '../components/exportsEntities/exportsEntityForm.js';
+import ExportsList from '../components/exports/exportsLists.js';
+import ExportsForm from '../components/exports/exportsForm.js';
+import ExportsDetail from '../components/exports/exportsDetails.js';
 
 export default class MyApp extends React.Component {
 	render() {
@@ -18,8 +23,8 @@ export default class MyApp extends React.Component {
 				<div>
 					<AppNavbar/>
 					<Grid container spacinng={2} className="gridContainer">
-						<Grid item xs={1}></Grid>
-						<Grid item xs={10}>
+						<Grid item md={1}></Grid>
+						<Grid item md={10}>
 							<Switch>
 								<Route exact path='/' component={Home}/>
 							  	<Route exact path='/agreement_details/:id' component={AgreementDetail}/>
@@ -28,9 +33,14 @@ export default class MyApp extends React.Component {
 							  	<Route exact path='/farmer' component={farmerList}/>
 							  	<Route exact path='/farmer/new/:id?' component={FarmerForm}/>
 							  	<Route exact path='/delivery/:agreement_id/new/:id?' component={DeliveryForm}/>
+							  	<Route exact path='/exportsEntities' component={ExportsEntitiesList}/>
+							  	<Route exact path='/exportsEntities/new/:id?' component={ExportsEntityForm}/>
+							  	<Route exact path='/exports' component={ExportsList}/>
+							  	<Route exact path='/exports/new/:id?' component={ExportsForm}/>
+							  	<Route exact path='/exports_detail/:id' component={ExportsDetail}/>
 							</Switch>
 						</Grid>
-						<Grid item xs={1}></Grid>
+						<Grid item md={1}></Grid>
 					</Grid>
 					<Footer/>
 				</div>

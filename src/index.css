@@ -2188,6 +2188,11 @@ table{
 	width: 100%;
 }
 
+.groundnut{
+  background-image: url("./images/groundnut.jpeg");
+    background-repeat: repeat;
+}
+
 a {
 	color: inherit;
 }

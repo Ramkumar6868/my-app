@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 import * as agreementActions from '../../../actions/agreementActions.js';
 import PropTypes from 'prop-types';
 import DeliveryDetail from '../delivery/deliveryDetails.js';
@@ -93,7 +94,9 @@ class AgreementDetail extends React.Component{
 								<TableFooter>
 									<TableRow>
 										<TableCell>
-											<Button variant="contained" href="" className="right">Edit Agreement</Button>
+											<Link to={"/agreement/new/" + this.state.agreementDetail.id}>
+												<Button variant="contained" href="" className="right">Edit Agreement</Button>
+											</Link>
 										</TableCell>
 									</TableRow>
 								</TableFooter>

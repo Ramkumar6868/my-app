@@ -94,6 +94,28 @@ class AppNavBar extends React.Component {
 						linkName: '/agreement/new'
 					}
 				]
+			},
+			exportsEntitiesMenu: {
+				name: "Exports Entities",
+				links: [
+					{
+						name: 'Exports Entities List',
+						linkName: '/exportsEntities'
+					},
+					{
+						name: 'New Export Entity',
+						linkName: '/exportsEntities/new'
+					}
+				]
+			},
+			exportsMenu: {
+				name: "Exports",
+				links: [
+					{
+						name: "Exports List",
+						linkName: '/exports'
+					}
+				]
 			}
 		};
 	}
@@ -108,6 +130,8 @@ class AppNavBar extends React.Component {
 						<Button color="inherit"><Link to='/' className="nav-link" color="inherit">Home</Link></Button>
 						<AppMenu menuDetail={this.state.farmerMenu}/>
 						<AppMenu menuDetail={this.state.agreementMenu}/>
+						<AppMenu menuDetail={this.state.exportsMenu}/>
+						<AppMenu menuDetail={this.state.exportsEntitiesMenu}/>
 					</Toolbar>
 				</AppBar>
 		);

@@ -106,7 +106,7 @@ class AgreementForm extends React.Component{
 			<Grid>
 				<Grid item>
 					<Typography variant="headline" component="h1" className="center grey">
-						Agreement Detail
+						Agreement Update/Create
 					</Typography>
 					<Typography component="div">
 						<form onSubmit={this.submitAgreementForm}>
