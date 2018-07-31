@@ -13,6 +13,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import DropMenu from '../common/menuLists.js';
 
 
 // const modalStyle = {
@@ -31,6 +32,19 @@ import Button from '@material-ui/core/Button';
 
 
 function RenderTableRaw(props){
+	var linkMenu = {
+		name: "...",
+		links: [
+			{
+				name: "Details",
+				linkName: "/agreement_details/" + props.agreement.id,
+			},
+			{
+				name: "Delivery",
+				linkName: "/delivery/"+ props.agreement.id +"/new/"
+			}
+		]
+	}
 	return(
 		<TableRow>
 			<TableCell>{props.agreement.farmer.firstName + " " + props.agreement.farmer.lastName}</TableCell>
@@ -40,15 +54,9 @@ function RenderTableRaw(props){
 			<TableCell>{props.agreement.rate}</TableCell>
 			<TableCell>{props.agreement.extraInfo}</TableCell>
 			<TableCell>
-				
-				<Link to={"/agreement_details/" + props.agreement.id} >
-					<Button variant="outlined" href="" className="right">Details</Button>
-				</Link>
-			</TableCell>
-			<TableCell>
-				<Link to={"/delivery/"+ props.agreement.id +"/new/"} >
-					<Button variant="outlined" href="" className="right">Delivery</Button>
-				</Link>
+				<DropMenu 
+					menuDetail= {linkMenu}
+				/>
 			</TableCell>
 		</TableRow>
 	)
@@ -143,8 +151,7 @@ class AgreementsList extends React.Component{
 											<TableCell>Groundnut Type</TableCell>
 											<TableCell>Rate</TableCell>
 											<TableCell>Extra Information</TableCell>
-											<TableCell>Details</TableCell>
-											<TableCell>Delivery</TableCell>
+											<TableCell></TableCell>
 										</TableRow>
 									</TableHead>
 									<TableBody>

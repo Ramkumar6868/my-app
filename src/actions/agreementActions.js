@@ -25,9 +25,12 @@ export function fetchAgreementDetail(id){
 export function addOrUpdateToAgreementList(agreement) {
     var agreements = agreementsList;
 	if (agreement.id) {
-		var tmp = agreements.map((agr,index) => agr.id == agreement.id ? agreement : agr);
-		agreements = tmp;
-    	console.log(agreements)
+		for(var i = 0; i <  agreementsList.length; i++){
+			if(agreementsList[i].id == agreement.id){
+				agreementsList[i] = {...agreement};
+				break;
+			}
+		}
 	} else {
     	agreement.id = agreementsList[agreementsList.length - 1].id + 11;
     	agreements.push(agreement);

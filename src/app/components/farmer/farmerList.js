@@ -57,7 +57,7 @@ class FarmerList extends React.Component{
 				<Grid item>
 					<Paper elevation={1}>
 						<Typography variant="headline" component="h1" className="center grey">
-							Agreement Detail
+							Farmers Lists
 						</Typography>
 						<Typography component="div">			
 							<Table className="striped">
