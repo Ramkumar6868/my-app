@@ -8,8 +8,8 @@ export default class Footer extends React.Component {
 	render(){
 		return(
 			<footer className="footer">
-				<BottomNavigation className="center grey darken-4 " showLabels >
-					<BottomNavigationAction className="grey-text footer-label" label="Powered By: @ Ram Kumar Kulriya"/>
+				<BottomNavigation className="center grey darken-4 groundnut" showLabels >
+					<BottomNavigationAction className="black-text footer-label" label="Powered By: @ Ram Kumar Kulriya"/>
 				</BottomNavigation>
 			</footer>
 		)

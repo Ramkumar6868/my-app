@@ -6,6 +6,7 @@ import {deliveryDetails, deliveryDetail} from './deliveryReducer.js';
 import {farmerDetail} from './farmerReducer.js';
 import { exportsEntities, exportsEntity } from './exportsEntitiesReducer.js';
 import { exports, exportsDetail } from './exportsReducer.js';
+import { supplyDetail, supplyDetails } from './supplyReducer.js';
 
 const rootReducer = combineReducers({
 	farmer,
@@ -17,7 +18,9 @@ const rootReducer = combineReducers({
 	exportsEntities,
 	exportsEntity,
 	exports,
-	exportsDetail
+	exportsDetail,
+	supplyDetail,
+	supplyDetails
 })
 
 export default rootReducer;

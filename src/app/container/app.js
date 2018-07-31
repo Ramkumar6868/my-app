@@ -15,6 +15,7 @@ import ExportsEntityForm from '../components/exportsEntities/exportsEntityForm.j
 import ExportsList from '../components/exports/exportsLists.js';
 import ExportsForm from '../components/exports/exportsForm.js';
 import ExportsDetail from '../components/exports/exportsDetails.js';
+import SupplyForm from '../components/supply/supplyForm.js';
 
 export default class MyApp extends React.Component {
 	render() {
@@ -38,6 +39,7 @@ export default class MyApp extends React.Component {
 							  	<Route exact path='/exports' component={ExportsList}/>
 							  	<Route exact path='/exports/new/:id?' component={ExportsForm}/>
 							  	<Route exact path='/exports_detail/:id' component={ExportsDetail}/>
+							  	<Route exact path='/supply/:exports_id/new/:id?' component={SupplyForm}/>
 							</Switch>
 						</Grid>
 						<Grid item md={1}></Grid>

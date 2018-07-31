@@ -22,6 +22,10 @@ import DropMenu from '../common/menuLists.js';
 			{
 				name: 'Edit',
 				linkName: "/exports/new/" + props.entity.id
+			},
+			{
+				name: 'Details',
+				linkName: "/exports_detail/" + props.entity.id
 			}
 		]
 	}
@@ -67,7 +71,7 @@ class ExportsList extends React.Component{
 			<Grid>
 				<Grid item>
 					<Paper elevation={1}>
-						<Typography variant="headline" component="h1" className="center grey groundnut">
+						<Typography variant="headline" component="h1" className="center grey">
 							Exports List
 						</Typography>
 						<Typography component="div">
@@ -103,7 +107,7 @@ class ExportsList extends React.Component{
 					</Paper>
 				</Grid>
 				<Grid item>
-						<Link to="/exportsEntities/new">
+						<Link to="/exports/new">
 							<Button variant="outlined" href="" className="right">
 								Add New Export Entity
 							</Button>

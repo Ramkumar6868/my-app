@@ -77,8 +77,12 @@ class AppNavBar extends React.Component {
 				name: 'farmer',
 				links: [
 					{
-						name: 'FarmerList',
+						name: 'Farmer List',
 						linkName: '/farmer'
+					},
+					{
+						name: 'Create Farmer',
+						linkName: '/farmer/new'
 					}
 				]
 			},
@@ -103,7 +107,7 @@ class AppNavBar extends React.Component {
 						linkName: '/exportsEntities'
 					},
 					{
-						name: 'New Export Entity',
+						name: 'Create Exports Entity',
 						linkName: '/exportsEntities/new'
 					}
 				]
@@ -114,6 +118,10 @@ class AppNavBar extends React.Component {
 					{
 						name: "Exports List",
 						linkName: '/exports'
+					},
+					{
+						name: "New Exports",
+						linkName: '/exports/new'
 					}
 				]
 			}
