@@ -13,8 +13,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
 import DropMenu from '../common/menuLists.js';
-
+import PaymentEntryForm from '../payment/paymentEntry.js';
 
 // const modalStyle = {
 // 	content: {
@@ -58,6 +62,9 @@ function RenderTableRaw(props){
 					menuDetail= {linkMenu}
 				/>
 			</TableCell>
+			<TableCell>
+				<Button  variant="outlined" onClick={() => props.handleOpenPayment(props.agreement)}>Payment</Button>
+			</TableCell>
 		</TableRow>
 	)
 }
@@ -65,12 +72,36 @@ function RenderTableRaw(props){
 class AgreementsList extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = {};
-
+		this.state = {
+			openPaymentDialog: false,
+			entityDetail: {},
+			paymentDialogAgreement: {}
+		};
+		this.handleOpenPayment = this.handleOpenPayment.bind(this);
+		this.handleClosePayment = this.handleClosePayment.bind(this);
 		// this.handleAgreementDetailOpenModal = this.handleAgreementDetailOpenModal.bind(this);
 		// this.handleAgreementDetailCloseModal = this.handleAgreementDetailCloseModal.bind(this);
 		// this.handleAgreementFormOpenModal = this.handleAgreementFormOpenModal.bind(this);
 		// this.handleAgreementFormCloseModal = this.handleAgreementFormCloseModal.bind(this);
+	}
+
+	handleOpenPayment(agreement){
+		var entityDetail = {
+			entity_id: agreement.id,
+			entity_type: 'agreement',
+			type: 'debit'
+		}
+		this.setState({
+			openPaymentDialog: true,
+			entityDetail: entityDetail,
+			paymentDialogAgreement: agreement
+		});
+	}
+
+	handleClosePayment(){
+		this.setState({
+			openPaymentDialog: false
+		});
 	}
 
 	// resetAgreementDetails(){
@@ -151,6 +182,7 @@ class AgreementsList extends React.Component{
 											<TableCell>Groundnut Type</TableCell>
 											<TableCell>Rate</TableCell>
 											<TableCell>Extra Information</TableCell>
+											<TableCell>Actions</TableCell>
 											<TableCell></TableCell>
 										</TableRow>
 									</TableHead>
@@ -159,7 +191,7 @@ class AgreementsList extends React.Component{
 											// console.log(this.props.agreementsList)
 											this.props.agreementsList.map((agreement, index) =>{
 												return(
-													<RenderTableRaw key={agreement.id} agreement={agreement}/>
+													<RenderTableRaw key={agreement.id} handleOpenPayment={(agreement)=>this.handleOpenPayment(agreement)} agreement={agreement}/>
 												);
 											})
 										}
@@ -175,6 +207,15 @@ class AgreementsList extends React.Component{
 								</Button>
 						</Link>
 					</Grid>
+					<Dialog
+				        open={this.state.openPaymentDialog}
+				        onClose={this.handleClosePayment}
+				        aria-labelledby="Entry for Payment"
+				    >
+				    	<DialogTitle id="confirmation-dialog-title">Entry for payment of Agreement: <br/><b>{this.state.paymentDialogAgreement.farmer && (" " + this.state.paymentDialogAgreement.farmer.firstName + " " + this.state.paymentDialogAgreement.farmer.lastName + " s/o " +  this.state.paymentDialogAgreement.farmer.fatherName + ", " + this.state.paymentDialogAgreement.farmer.village + ", Type: " + this.state.paymentDialogAgreement.groundnutType)}</b></DialogTitle>
+				        <PaymentEntryForm entityDetail={this.state.entityDetail}/>
+
+				      </Dialog>
 				</Grid>
 			)
 		}
